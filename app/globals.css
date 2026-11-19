@@ -254,3 +254,16 @@ img {
     font-size: max(16px, 1em);
   }
 }
+
+/* Text fields: no focus box. The blinking caret shows where you're typing, and each field's
+   border darkens while it has focus (forms.css, navigation.css), so it's still clear which
+   field is active. Buttons and links keep the focus outline above for keyboard users. */
+input:not([type="checkbox"]):not([type="radio"]):focus,
+input:not([type="checkbox"]):not([type="radio"]):focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none;
+  caret-color: var(--ink);
+}
