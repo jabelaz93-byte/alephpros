@@ -9,7 +9,9 @@
  * - Write it so a homeowner understands it: what we built, where, how long, what it took.
  * - Only real facts from the job. Leave an optional field out rather than guess.
  * - Keep lists short: scope up to 6 lines, specs up to 6 pairs.
- * - Set `publish: true` only when the owner has approved the photos and the city being shown.
+ * - Set `publish: true` only when the owner has approved the photos.
+ * - Location is optional: case studies don't have to say where the job was. Leave `city` out
+ *   unless the owner wants it shown.
  * - Photos: /public/images/projects/<slug>/<file>.jpg, real jobs only, no renders or stock.
  *
  * Copy NEW_PROJECT at the bottom of this file to start a new entry.
@@ -38,8 +40,8 @@ export type Project = {
   slug: string;
   /** Display name: what + where, e.g. "Kitchen remodel, Frisco". */
   name: string;
-  /** City from the service areas list (lib/site.ts). */
-  city: string;
+  /** Optional. City from the service areas list (lib/site.ts), only if the owner wants it shown. */
+  city?: string;
   /** Month the work was finished, YYYY-MM. */
   completed: string;
   /** Working time on site. */
@@ -73,7 +75,7 @@ export type Project = {
   /** Shown only if the owner agreed to share it. */
   budgetBand?: BudgetBand;
 
-  /** Owner approved photos and city for the website. */
+  /** Owner approved the photos for the website. */
   publish: boolean;
   /** Pin to the home page and system pages. */
   featured?: boolean;

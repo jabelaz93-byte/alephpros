@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { BrandText } from "@/components/ui/BrandText";
 import { footer } from "@/data/shared";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
@@ -103,7 +104,9 @@ export function Footer() {
         </nav>
 
         <div className="t-small mt-8 hidden flex-wrap items-center gap-x-7 gap-y-2 text-muted lg:flex">
-          <span>{legalLine}</span>
+          <span>
+            <BrandText>{legalLine}</BrandText>
+          </span>
           <span className="flex-1" />
           {footer.legal.map((l) => (
             <Link key={l.label} href={l.href} className="hover:text-ink">
@@ -113,22 +116,24 @@ export function Footer() {
         </div>
       </div>
 
-      {/* The name at the end, fitted edge to edge. */}
+      {/* The name at the end, fitted edge to edge. Sized from Mayak Bold's real letter widths
+          (font size 180 = 1000 units of ink, cap height 126); lengthAdjust="spacing" only widens
+          the gaps, so the letters keep their drawn shape at any --logo-weight. */}
       <div className="container-page pt-10 pb-4 lg:pb-6" aria-hidden="true">
         <svg
-          viewBox="0 0 1000 118"
-          className="block w-full"
+          viewBox="0 0 1000 128"
+          className="block w-full overflow-visible"
           role="presentation"
         >
           <text
-            x="0"
-            y="112"
-            textLength="1000"
-            lengthAdjust="spacingAndGlyphs"
+            x="-6"
+            y="127"
+            textLength="1012"
+            lengthAdjust="spacing"
             className="font-logo"
             style={{
-              fontSize: 142,
-              fontWeight: 700,
+              fontSize: 180,
+              fontWeight: "var(--logo-weight)",
               fill: "var(--aleph-yellow)",
             }}
           >
@@ -137,7 +142,7 @@ export function Footer() {
         </svg>
       </div>
       <p className="container-page t-caption pb-8 font-normal text-muted lg:hidden">
-        {legalLine}
+        <BrandText>{legalLine}</BrandText>
       </p>
     </footer>
   );

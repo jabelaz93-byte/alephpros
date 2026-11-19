@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BrandText } from "@/components/ui/BrandText";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { SheetCode } from "@/components/ui/SheetCode";
 import type { Cta, Photo } from "@/data/types";
@@ -64,11 +65,11 @@ export function DetailLayout(p: Props) {
               )}
             </div>
             <h1 className="mt-4 font-bold text-[32px] leading-[1.08] tracking-[-0.02em] lg:text-[40px]">
-              {p.title}
+              <BrandText>{p.title}</BrandText>
             </h1>
             {p.summary && (
               <p className="mt-4 text-[16px] text-muted leading-relaxed">
-                {p.summary}
+                <BrandText>{p.summary}</BrandText>
               </p>
             )}
             {p.highlight && (

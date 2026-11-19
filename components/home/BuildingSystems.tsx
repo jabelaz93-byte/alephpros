@@ -114,6 +114,14 @@ export function BuildingSystems({
                         {item.featured}
                       </p>
                     )}
+                    {item.caseHref && (
+                      <Link
+                        href={item.caseHref}
+                        className="mt-3 font-semibold text-[12px] text-ink underline underline-offset-4"
+                      >
+                        {copy.caseStudy}
+                      </Link>
+                    )}
                     <Link
                       href={href}
                       className="mt-auto pt-6 font-semibold text-[12px] text-yellow underline decoration-[1.5px] underline-offset-4 lg:pt-8"

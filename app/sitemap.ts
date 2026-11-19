@@ -1,41 +1,14 @@
 import type { MetadataRoute } from "next";
-import { docs } from "@/data/legal";
-import { disciplines } from "@/lib/howWeBuild";
-import { products } from "@/lib/products";
-import { published } from "@/lib/projects";
-import {
-  cityHref,
-  disciplineHref,
-  legalHref,
-  productHref,
-  projectHref,
-  serviceHref,
-  subHref,
-  systemHref,
-} from "@/lib/routes";
-import { services } from "@/lib/services";
-import { serviceAreas, site } from "@/lib/site";
-import { systems } from "@/lib/systems";
+import { registry } from "@/data/seo/registry";
+import { abs } from "@/data/seo/site";
 
-/** Every public URL in docs/ARCHITECTURE.md. Unpublished projects are left out. */
+/**
+ * Built from data/seo/registry.ts: only indexable pages, each with the date its content last
+ * changed. Noindex pages (drafts, placeholders, empty legal docs) are left out automatically.
+ * No priority/changefreq: Google ignores them.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = [
-    "/",
-    "/projects",
-    "/building-systems",
-    "/how-we-build",
-    "/lighting-store",
-    "/estimate",
-    "/contact",
-    "/team",
-    ...published().map(projectHref),
-    ...systems.map(systemHref),
-    ...services.map(serviceHref),
-    ...services.flatMap((s) => (s.subs ?? []).map((x) => subHref(s, x))),
-    ...disciplines.map((d) => disciplineHref(d.slug)),
-    ...products.map(productHref),
-    ...serviceAreas.map(cityHref),
-    ...docs.map((d) => legalHref(d.slug)),
-  ];
-  return paths.map((p) => ({ url: `${site.url}${p === "/" ? "" : p}` }));
+  return registry()
+    .filter((e) => e.seo.index)
+    .map((e) => ({ url: abs(e.seo.path), lastModified: e.lastModified }));
 }

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BrandText } from "@/components/ui/BrandText";
 import { TextLink } from "@/components/ui/TextLink";
 import type { Cta } from "@/data/types";
 
@@ -41,10 +42,12 @@ export function Section({
           >
             <div>
               <h2 id={headId} className="t-h1">
-                {title}
+                <BrandText>{title}</BrandText>
               </h2>
               {lead && (
-                <p className="t-small mt-3 max-w-[60ch] text-muted">{lead}</p>
+                <p className="t-small mt-3 max-w-[60ch] text-muted">
+                  <BrandText>{lead}</BrandText>
+                </p>
               )}
             </div>
             {link && (

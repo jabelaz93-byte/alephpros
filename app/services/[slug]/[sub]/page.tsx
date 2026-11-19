@@ -10,10 +10,12 @@ import { PageHero } from "@/components/patterns/PageHero";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
 import { ServiceAside } from "@/components/patterns/ServiceAside";
+import { JsonLd } from "@/components/seo/JsonLd";
 import {
   index as systemsIndex,
   seo as systemsSeo,
 } from "@/data/building-systems";
+import { subSeo } from "@/data/seo/templates";
 import { labels, pageLabels } from "@/data/services";
 import { band, closingTitle, cta } from "@/data/shared";
 import { money } from "@/lib/estimate";
@@ -32,12 +34,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, sub } = await params;
   const hit = getSub(slug, sub);
-  if (!hit) return {};
-  return {
-    title: { absolute: `${hit.sub.name} in Dallas–Fort Worth | AlephPros` },
-    description: hit.sub.lead,
-    alternates: { canonical: subHref(hit.service, hit.sub) },
-  };
+  return hit ? subSeo(hit.service, hit.sub).metadata : {};
 }
 
 /** /services/[slug]/[sub]: one sub-service (A-102, I-202, G-402…). */
@@ -68,6 +65,7 @@ async function SubServicePageBody({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={subSeo(service, item).jsonLd} />
       <PageHero
         trail={[
           home,

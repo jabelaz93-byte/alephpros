@@ -11,11 +11,13 @@ import { PageHero } from "@/components/patterns/PageHero";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
 import { ServiceAside } from "@/components/patterns/ServiceAside";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { TextLink } from "@/components/ui/TextLink";
 import {
   index as systemsIndex,
   seo as systemsSeo,
 } from "@/data/building-systems";
+import { serviceSeo } from "@/data/seo/templates";
 import { labels, pageLabels } from "@/data/services";
 import { band, closingTitle, cta } from "@/data/shared";
 import { coverPhoto, projectsFor } from "@/lib/projects";
@@ -38,12 +40,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const s = getService((await params).slug);
-  if (!s) return {};
-  return {
-    title: { absolute: `${s.name} in Dallas–Fort Worth | AlephPros` },
-    description: s.lead,
-    alternates: { canonical: serviceHref(s) },
-  };
+  return s ? serviceSeo(s).metadata : {};
 }
 
 /** /services/[slug]: a service family (A-101, I-101, E-201…), under its building system. */
@@ -74,6 +71,7 @@ async function ServicePageBody({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={serviceSeo(service).jsonLd} />
       <PageHero
         trail={[
           home,

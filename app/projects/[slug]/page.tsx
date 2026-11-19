@@ -9,7 +9,9 @@ import { IndexRows } from "@/components/patterns/IndexRows";
 import { CardGrid, MediaCard } from "@/components/patterns/MediaCard";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { detail, draft, index, seo } from "@/data/projects";
+import { projectSeo } from "@/data/seo/templates";
 import { band, closingTitle, cta } from "@/data/shared";
 import { getProduct } from "@/lib/products";
 import {
@@ -39,13 +41,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = find((await params).slug);
-  if (!p) return {};
-  return {
-    title: { absolute: `${p.name} | AlephPros projects` },
-    description: p.summary,
-    alternates: { canonical: projectHref(p) },
-    robots: p.publish ? undefined : { index: false },
-  };
+  return p ? projectSeo(p).metadata : {};
 }
 
 /** /projects/[slug]: one project, on the shared slug template (components/patterns/DetailLayout). */
@@ -66,7 +62,7 @@ async function ProjectPageBody({ params }: Props) {
   if (!p) notFound();
 
   const facts: [string, string][] = [
-    [draft.facts.city, p.city],
+    ...(p.city ? [[draft.facts.city, p.city] as [string, string]] : []),
     [draft.facts.completed, completedLabel(p)],
     ...(p.duration
       ? [
@@ -93,6 +89,7 @@ async function ProjectPageBody({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={projectSeo(p).jsonLd} />
       <DetailLayout
         banner={p.publish ? undefined : draft.banner}
         trail={[

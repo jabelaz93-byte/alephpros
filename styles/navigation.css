@@ -65,7 +65,14 @@
 }
 
 @media (width >= 64rem) {
+  /* Desktop: the menu button sits centred in the left margin, between the screen edge and the
+     left frame rail (styles/layout.css); the logo starts right at the rail. Same maths as the
+     rails: % of the full-width header. */
   .nav__menu {
+    position: absolute;
+    top: 50%;
+    left: calc(((100% - var(--page-width)) / 2 - var(--rail-offset)) / 2);
+    transform: translate(-50%, -50%);
     order: 0;
     width: 40px;
     margin-left: 0;
@@ -76,6 +83,10 @@
   }
   .nav__menu-label {
     display: none;
+  }
+  /* The logo link (the bar's only direct <a>) starts at the rail, not at the content edge. */
+  .nav__bar > a {
+    margin-left: calc(-1 * var(--rail-offset));
   }
 }
 

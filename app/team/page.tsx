@@ -2,17 +2,21 @@ import { ClosingBand } from "@/components/home/ClosingBand";
 import { home } from "@/components/patterns/Breadcrumbs";
 import { PageHero } from "@/components/patterns/PageHero";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { BrandText } from "@/components/ui/BrandText";
 import { SheetCode } from "@/components/ui/SheetCode";
-import { band, closingTitle, metaFor } from "@/data/shared";
+import { teamSeoPage } from "@/data/seo/pages";
+import { band, closingTitle } from "@/data/shared";
 import { action, hero, labels, seo } from "@/data/team";
 import { team, teamGroups } from "@/lib/team";
 
-export const metadata = metaFor(seo);
+export const metadata = teamSeoPage.metadata;
 
 /** /team: people grouped as Leadership · Engineering & design · Field & trades · Client service. */
 export default function TeamPage() {
   return (
     <>
+      <JsonLd data={teamSeoPage.jsonLd} />
       <PageHero
         trail={[home, { label: hero.title, href: seo.path }]}
         title={hero.title}
@@ -20,7 +24,9 @@ export default function TeamPage() {
         actions={[action]}
       />
       <Section tone="white">
-        <p className="t-body-l max-w-[64ch] text-muted">{hero.intro}</p>
+        <p className="t-body-l max-w-[64ch] text-muted">
+          <BrandText>{hero.intro}</BrandText>
+        </p>
       </Section>
       {teamGroups.map((g) => {
         const people = team.filter((p) => p.group === g);

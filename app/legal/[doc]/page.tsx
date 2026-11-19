@@ -5,7 +5,9 @@ import { home } from "@/components/patterns/Breadcrumbs";
 import { PageHero } from "@/components/patterns/PageHero";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { docs, labels } from "@/data/legal";
+import { legalSeo } from "@/data/seo/templates";
 import { legalHref } from "@/lib/routes";
 
 type Props = { params: Promise<{ doc: string }> };
@@ -17,12 +19,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const d = getDoc((await params).doc);
-  if (!d) return {};
-  return {
-    title: { absolute: `${d.title} | AlephPros` },
-    alternates: { canonical: legalHref(d.slug) },
-  };
+  return legalSeo((await params).doc)?.metadata ?? {};
 }
 
 /** /legal/[doc]: privacy and terms. Text lives in data/legal.ts. */
@@ -43,6 +40,7 @@ async function LegalPageBody({ params }: Props) {
   if (!d) notFound();
   return (
     <>
+      <JsonLd data={legalSeo(d.slug)?.jsonLd ?? []} />
       <PageHero
         trail={[home, { label: d.title, href: legalHref(d.slug) }]}
         eyebrow="Legal"

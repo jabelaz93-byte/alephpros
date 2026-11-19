@@ -5,6 +5,8 @@ import { home } from "@/components/patterns/Breadcrumbs";
 import { FactList } from "@/components/patterns/FeatureGrid";
 import { PageHero } from "@/components/patterns/PageHero";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { BrandText } from "@/components/ui/BrandText";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { TextLink } from "@/components/ui/TextLink";
 import {
@@ -15,16 +17,17 @@ import {
   serviceAreaLine,
   visit,
 } from "@/data/contact";
-import { metaFor } from "@/data/shared";
+import { contactSeoPage } from "@/data/seo/pages";
 import { cityHref } from "@/lib/routes";
 import { serviceAreas, site } from "@/lib/site";
 
-export const metadata = metaFor(seo);
+export const metadata = contactSeoPage.metadata;
 
 /** /contact: three routes (price, visit, talk), the request form (#site-visit) and the office. */
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={contactSeoPage.jsonLd} />
       <PageHero
         trail={[home, { label: "Contact", href: seo.path }]}
         title={hero.title}
@@ -39,7 +42,9 @@ export default function ContactPage() {
               className="flex flex-col border-[3px] border-ink p-6"
             >
               <h2 className="t-h3">{r.title}</h2>
-              <p className="mt-2 flex-1 text-[14px] text-muted">{r.body}</p>
+              <p className="mt-2 flex-1 text-[14px] text-muted">
+                <BrandText>{r.body}</BrandText>
+              </p>
               <ButtonLink
                 link={r.action}
                 variant={i === 0 ? "primary" : "secondary"}

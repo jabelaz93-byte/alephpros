@@ -112,8 +112,17 @@ now go to `/team`, `/building-systems` and `/contact`, and `next.config.ts` redi
 kept for when those pages are added. Old alephpros.com URLs from the copy deck redirect
 permanently (see `next.config.ts › redirects`).
 
+## SEO
+
+Every page's title, description, canonical, robots, share card and structured data come from
+`data/seo/` (same strategy as mrdn.digital). `data/seo/registry.ts` lists every URL with its
+index flag and date; `app/sitemap.ts` is built from it. Rules and coverage:
+[`data/seo/README.md`](../data/seo/README.md). The share card is `app/opengraph-image.tsx`
+(Mayak, from `assets/fonts/*.ttf`).
+
 ## Adding a page
 
 1. Add the route under `app/` and its words in `data/<page>.ts`.
 2. Add its URL builder to `lib/routes.ts` if it has a slug.
-3. Add it to `app/sitemap.ts`, to `proxy.ts` (slug routes), and to the tree above.
+3. Add its SEO in `data/seo/pages.ts` or `templates.ts` and an entry in `data/seo/registry.ts`
+   (the sitemap follows), add slug routes to `proxy.ts`, and add it to the tree above.

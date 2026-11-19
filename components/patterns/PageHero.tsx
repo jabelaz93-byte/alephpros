@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BrandText } from "@/components/ui/BrandText";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { SheetCode } from "@/components/ui/SheetCode";
 import type { Cta } from "@/data/types";
@@ -47,10 +48,12 @@ export function PageHero({
             id="page-title"
             className="mt-4 max-w-[20ch] font-bold text-[36px] leading-[1.05] tracking-[-0.02em] lg:text-[52px]"
           >
-            {title}
+            <BrandText>{title}</BrandText>
           </h1>
           {lead && (
-            <p className="t-body-l mt-5 max-w-[56ch] text-muted">{lead}</p>
+            <p className="t-body-l mt-5 max-w-[56ch] text-muted">
+              <BrandText>{lead}</BrandText>
+            </p>
           )}
           {actions && actions.length > 0 && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">

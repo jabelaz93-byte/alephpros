@@ -3,18 +3,21 @@ import { home } from "@/components/patterns/Breadcrumbs";
 import { IndexRows } from "@/components/patterns/IndexRows";
 import { PageHero } from "@/components/patterns/PageHero";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { index, labels, seo } from "@/data/building-systems";
-import { band, closingTitle, cta, metaFor } from "@/data/shared";
+import { buildingSystemsSeo } from "@/data/seo/pages";
+import { band, closingTitle, cta } from "@/data/shared";
 import { systemHref } from "@/lib/routes";
 import { bySystem } from "@/lib/services";
 
-export const metadata = metaFor(seo);
+export const metadata = buildingSystemsSeo.metadata;
 
 /** /building-systems: the five systems, indexed like a drawing set. */
 export default function BuildingSystemsPage() {
   const systems = bySystem();
   return (
     <>
+      <JsonLd data={buildingSystemsSeo.jsonLd} />
       <PageHero
         trail={[home, { label: index.title, href: seo.path }]}
         title={index.title}

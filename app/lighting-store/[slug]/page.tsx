@@ -8,6 +8,7 @@ import { IndexRows } from "@/components/patterns/IndexRows";
 import { CardGrid, MediaCard } from "@/components/patterns/MediaCard";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Price } from "@/components/store/StoreBrowser";
 import {
   catalog,
@@ -15,6 +16,7 @@ import {
   product,
   seo,
 } from "@/data/lighting-store";
+import { productSeo } from "@/data/seo/templates";
 import { band, closingTitle } from "@/data/shared";
 import { getProduct, products } from "@/lib/products";
 import { getProject } from "@/lib/projects";
@@ -28,14 +30,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProduct((await params).slug);
-  if (!p) return {};
-  return {
-    title: { absolute: `${p.name} | AlephPros lighting store` },
-    description:
-      p.summary ??
-      `${p.name}, supplied and installed by AlephPros in Dallas–Fort Worth.`,
-    alternates: { canonical: productHref(p) },
-  };
+  return p ? productSeo(p).metadata : {};
 }
 
 /** /lighting-store/[slug]: one fixture, on the shared slug template (components/patterns/DetailLayout). */
@@ -74,6 +69,7 @@ async function ProductPageBody({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={productSeo(p).jsonLd} />
       <DetailLayout
         trail={[
           home,

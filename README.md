@@ -50,7 +50,7 @@ styles/              Component CSS, one file per area, loaded from app/globals.c
                      Tailwind's components layer (layout, navigation, home, forms).
 proxy.ts             Real 404 status for unknown slugs (see docs/ARCHITECTURE.md)
 public/images/       Real project photos only (no stock, no renders).
-public/fonts/        Logo font goes here; not committed (see below).
+public/fonts/        Mayak logo font, 4 weights (licensed; keep this repo private).
 docs/                ARCHITECTURE.md: page tree, slug pages, adding a page.
 ```
 
@@ -67,12 +67,15 @@ palette for black bands.
 **Icons.** Lucide, used only through `components/ui/Icon.tsx` (`<Icon name="phone" />`). To change
 icon library, edit that one file and keep the names.
 
-## Logo font (Mayak Bold)
+## Logo font (Mayak)
 
-The logo uses **Mayak Bold** by ParaType, a commercial font. It is **not** in this repository.
-Add the licensed web-font file at `public/fonts/Mayak-Bold.woff2` (or `.otf`); `app/globals.css`
-loads it automatically. Without it the logo falls back to Archivo Bold. Font files in
-`public/fonts/` are ignored by git so the licence isn't redistributed.
+The brand name is always set in **Mayak** by ParaType, a licensed font. Four weights are
+self-hosted in `public/fonts/` (Light, Regular, Medium, Bold, as woff2). The logo and footer
+wordmark use `--logo-weight` (Bold); "AlephPros" inside text uses `--brand-weight` (Medium) and
+is wrapped automatically by `components/ui/BrandText.tsx`. Both are set in `app/globals.css`.
+
+The font files are committed so Vercel can serve them, so **this repository must stay private**:
+a public repo would redistribute the font. Details in `public/fonts/README.md`.
 
 ## Content still to confirm
 

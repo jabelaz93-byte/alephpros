@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 /**
- * AlephPros logo: yellow mark + the name set in Mayak Bold.
+ * AlephPros logo: yellow mark + the name set in Mayak, at --logo-weight (app/globals.css).
  * The name is always ALEPHPROS in capitals; that's the logo, not a label.
  * Stand-in until the official logo SVG is added to /public/brand.
  */
@@ -18,7 +18,8 @@ export function Logo({
     <span className="inline-flex items-center gap-2.5">
       <span aria-hidden="true" className={`${mark} shrink-0 bg-yellow`} />
       <span
-        className={`font-logo font-bold ${text} leading-none tracking-[0.02em] text-ink`}
+        className={`font-logo ${text} leading-none tracking-[0.02em] text-ink`}
+        style={{ fontWeight: "var(--logo-weight)" }}
       >
         ALEPHPROS
       </span>

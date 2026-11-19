@@ -2,9 +2,8 @@
  * Content shared by every page: header links, the CTA vocabulary and the footer.
  * Source: AlephPros premium copy deck, "Shared components", and the v4 home design.
  */
-import type { Metadata } from "next";
 import { serviceAreas, site } from "@/lib/site";
-import type { Cta, Seo } from "./types";
+import type { Cta } from "./types";
 
 /**
  * The only button labels the site uses (copy deck, "CTA vocabulary").
@@ -126,10 +125,3 @@ export const band = (title: string, action: Cta = cta.calculate) => ({
 
 /** Closing band heading on inner pages (copy deck, "Closing CTA band"). */
 export const closingTitle = "Start with a number.";
-
-/** Page metadata from a page's `seo` block. */
-export const metaFor = (seo: Seo): Metadata => ({
-  title: { absolute: seo.title },
-  description: seo.description,
-  alternates: { canonical: seo.path },
-});

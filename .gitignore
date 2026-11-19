@@ -40,9 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Licensed logo font (Mayak, ParaType): never commit the font files; see README
-/public/fonts/*
-!/public/fonts/README.md
+# Licensed logo font (Mayak, ParaType) in /public/fonts IS committed so Vercel can serve it.
+# Keep this repository PRIVATE: a public repo would redistribute the font. See public/fonts/README.md.
 
 # Editors
 .idea/

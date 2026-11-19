@@ -9,15 +9,14 @@ import { Measurement } from "@/components/home/Measurement";
 import { ProcessSteps } from "@/components/home/ProcessSteps";
 import { Statement } from "@/components/home/Statement";
 import { Ticker } from "@/components/home/Ticker";
+import { JsonLd } from "@/components/seo/JsonLd";
 import * as home from "@/data/home";
+import { homeSeo } from "@/data/seo/pages";
+import { caseStudyHref } from "@/lib/routes";
 import { systems } from "@/lib/systems";
 import { testimonials } from "@/lib/testimonials";
 
-export const metadata: Metadata = {
-  title: { absolute: home.seo.title },
-  description: home.seo.description,
-  alternates: { canonical: home.seo.path },
-};
+export const metadata: Metadata = homeSeo.metadata;
 
 /**
  * Home (v4 design). Every word comes from data/home.ts; lists come from lib/.
@@ -29,6 +28,7 @@ export default function Home() {
 
   return (
     <>
+      <JsonLd data={homeSeo.jsonLd} />
       <section
         className="container-page lg:pt-14 lg:pb-0"
         aria-labelledby="home-title"
@@ -53,7 +53,13 @@ export default function Home() {
             {home.hero.action.label}
           </Link>
         </div>
-        <HeroCarousel slides={home.heroSlides} copy={home.carousel} />
+        <HeroCarousel
+          slides={home.heroSlides.map((s) => ({
+            ...s,
+            caseHref: caseStudyHref(s.image?.project),
+          }))}
+          copy={home.carousel}
+        />
       </section>
 
       <div className="lg:mt-14">
@@ -61,7 +67,16 @@ export default function Home() {
       </div>
       <Statement copy={home.statement} />
       <CompletedProjects copy={home.completedProjects} />
-      <BuildingSystems copy={home.buildingSystems} systems={systems} />
+      <BuildingSystems
+        copy={{
+          ...home.buildingSystems,
+          items: home.buildingSystems.items.map((i) => ({
+            ...i,
+            caseHref: caseStudyHref(i.image?.project),
+          })),
+        }}
+        systems={systems}
+      />
       <Measurement copy={home.measurement} />
       <ProcessSteps copy={home.process} />
       <HomeTestimonial copy={home.testimonial} review={review} />

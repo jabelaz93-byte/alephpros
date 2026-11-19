@@ -1,13 +1,23 @@
-# Logo font
+# Logo font: Mayak (ParaType)
 
-The AlephPros logo is set in **Mayak Bold** (ParaType). It is a paid font: use files from
-the licence you bought, with web-font rights (ParaType / MyFonts / Fontspring "Web" licence).
+The AlephPros brand name is always set in **Mayak**. Four weights are self-hosted here as
+woff2 (converted from the licensed .ttf files):
 
-Put the file here with exactly this name:
+| File | Weight |
+| --- | --- |
+| `Mayak-Light.woff2` | 300 |
+| `Mayak-Regular.woff2` | 400 |
+| `Mayak-Medium.woff2` | 500 |
+| `Mayak-Bold.woff2` | 700 |
 
-- `Mayak-Bold.woff2`  (preferred; the web-font package includes it)
-- or `Mayak-Bold.otf`
+Where it's used (`app/globals.css`):
 
-`app/globals.css` already loads it (`@font-face { font-family: "Mayak" … }`), and the logo,
-the footer wordmark and the carousel's code plates use it through the `font-logo` class.
-No code change is needed after adding the file; restart `pnpm dev`.
+- `--logo-weight` (now 700, Bold): the header/menu logo and the footer wordmark.
+- `--brand-weight` (now 500, Medium): "AlephPros" inside headings and text, wrapped
+  automatically by `components/ui/BrandText.tsx`.
+
+To try another weight, change those two values. If the logo weight changes, also update
+`LOGO_FONT` in `app/layout.tsx` (the file preloaded on every page).
+
+Licence: ParaType web licence (see the font's licence URL). Only serve these files from the
+AlephPros website; don't share them in a public repository.

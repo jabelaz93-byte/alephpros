@@ -8,8 +8,11 @@ import { CardGrid, MediaCard } from "@/components/patterns/MediaCard";
 import { PageHero } from "@/components/patterns/PageHero";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { BrandText } from "@/components/ui/BrandText";
 import { TextLink } from "@/components/ui/TextLink";
 import { index, labels, seo, systemPages } from "@/data/building-systems";
+import { systemSeo } from "@/data/seo/templates";
 import { band, closingTitle, cta } from "@/data/shared";
 import { coverPhoto, published } from "@/lib/projects";
 import { projectHref, serviceHref, systemHref } from "@/lib/routes";
@@ -24,12 +27,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const sys = getSystemBySlug((await params).slug);
-  if (!sys) return {};
-  return {
-    title: { absolute: `${sys.name} | AlephPros` },
-    description: systemPages[sys.code].seoDescription,
-    alternates: { canonical: systemHref(sys) },
-  };
+  return sys ? systemSeo(sys).metadata : {};
 }
 
 /** /building-systems/[slug]: one system (A, I, E, P, G), its services and its work. */
@@ -56,6 +54,7 @@ async function SystemPageBody({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={systemSeo(sys).jsonLd} />
       <PageHero
         trail={[
           home,
@@ -71,15 +70,19 @@ async function SystemPageBody({ params }: Props) {
       <Section tone="white">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h2 className="t-h1">{page.intro.title}</h2>
-            <p className="t-body-l mt-5 text-muted">{page.intro.body}</p>
+            <h2 className="t-h1">
+              <BrandText>{page.intro.title}</BrandText>
+            </h2>
+            <p className="t-body-l mt-5 text-muted">
+              <BrandText>{page.intro.body}</BrandText>
+            </p>
           </div>
           {page.method && (
             <div className="border-ink border-t-2 pt-6 lg:border-0 lg:pt-0">
               <p className="t-caption text-muted">{labels.method}</p>
               <h3 className="t-h2 mt-2">{page.method.title}</h3>
               <p className="mt-4 text-[15px] text-muted leading-relaxed">
-                {page.method.body}
+                <BrandText>{page.method.body}</BrandText>
               </p>
             </div>
           )}
@@ -107,7 +110,7 @@ async function SystemPageBody({ params }: Props) {
                   <h2 className="t-h2">{page.aside.title}</h2>
                 )}
                 <p className="mt-3 text-[15px] text-muted leading-relaxed">
-                  {page.aside.body}
+                  <BrandText>{page.aside.body}</BrandText>
                 </p>
                 {page.aside.link && (
                   <TextLink link={page.aside.link} className="mt-5" />

@@ -62,3 +62,5 @@ export const serviceAreas = [
   "Richardson",
   "Wylie",
 ] as const;
+
+export type ServiceAreaCity = (typeof serviceAreas)[number];

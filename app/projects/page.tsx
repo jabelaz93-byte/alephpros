@@ -3,19 +3,22 @@ import { home } from "@/components/patterns/Breadcrumbs";
 import { CardGrid, MediaCard } from "@/components/patterns/MediaCard";
 import { PageHero } from "@/components/patterns/PageHero";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { index, reviews, seo } from "@/data/projects";
-import { band, closingTitle, cta, metaFor } from "@/data/shared";
+import { projectsSeoPage } from "@/data/seo/pages";
+import { band, closingTitle, cta } from "@/data/shared";
 import { completedLabel, coverPhoto, published } from "@/lib/projects";
 import { projectHref } from "@/lib/routes";
 import { testimonials } from "@/lib/testimonials";
 
-export const metadata = metaFor(seo);
+export const metadata = projectsSeoPage().metadata;
 
 /** /projects: completed projects (only entries with `publish: true` in lib/projects.ts). */
 export default function ProjectsPage() {
   const list = published();
   return (
     <>
+      <JsonLd data={projectsSeoPage().jsonLd} />
       <PageHero
         trail={[home, { label: index.title, href: seo.path }]}
         title={index.title}

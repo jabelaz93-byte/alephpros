@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { measurement } from "@/data/home";
+import { caseStudyHref } from "@/lib/routes";
 
 /**
  * One real measurement, set huge over a project photo that fades in from the page colour.
@@ -38,6 +40,14 @@ export function Measurement({ copy }: { copy: typeof measurement }) {
           <span className="hidden lg:inline">{copy.line}</span>
         </p>
       </div>
+      {caseStudyHref(copy.image.project) && (
+        <Link
+          href={caseStudyHref(copy.image.project) ?? "/projects"}
+          className="absolute right-6 bottom-6 font-semibold text-[13px] text-white underline underline-offset-4 lg:right-[calc((100%-var(--page-width))/2)]"
+        >
+          {copy.caseStudy}
+        </Link>
+      )}
     </section>
   );
 }

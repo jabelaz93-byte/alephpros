@@ -8,8 +8,10 @@ import { FeatureGrid } from "@/components/patterns/FeatureGrid";
 import { PageHero } from "@/components/patterns/PageHero";
 import { PageSkeleton } from "@/components/patterns/PageSkeleton";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
 import { hub, discipline as L, seo } from "@/data/how-we-build";
+import { disciplineSeo } from "@/data/seo/templates";
 import { band, closingTitle, cta } from "@/data/shared";
 import { disciplines, getDiscipline } from "@/lib/howWeBuild";
 import { disciplineHref } from "@/lib/routes";
@@ -22,12 +24,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const d = getDiscipline((await params).slug);
-  if (!d) return {};
-  return {
-    title: { absolute: `${d.name} | How AlephPros builds` },
-    description: d.lead,
-    alternates: { canonical: disciplineHref(d.slug) },
-  };
+  return d ? disciplineSeo(d).metadata : {};
 }
 
 /** /how-we-build/[slug]: one discipline (readiness, management, lean, innovation, improvement). */
@@ -52,6 +49,7 @@ async function DisciplinePageBody({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={disciplineSeo(d).jsonLd} />
       <PageHero
         trail={[
           home,

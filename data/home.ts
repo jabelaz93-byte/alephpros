@@ -33,6 +33,8 @@ export type HeroSlide = {
   /** Two facts shown under the carousel while this slide is on. */
   facts: [Fact, Fact];
   image?: Photo;
+  /** Set by the page from image.project (lib/routes › caseStudyHref). */
+  caseHref?: string;
 };
 
 export const carousel = {
@@ -41,6 +43,8 @@ export const carousel = {
   /** Shown instead of `hint` on touch screens (mobile layout). */
   hintTouch: "Swipe or tap a service. Pauses when you touch it.",
   photoToCome: "Photo to come",
+  /** Link under the button when the slide's photo has a case study. */
+  caseStudy: "View the case study",
   previous: "Previous service",
   next: "Next service",
   /** Milliseconds each slide stays up. */
@@ -235,9 +239,12 @@ export type HomeSystem = {
   featured?: string;
   /** Project photo; without one the card shows the system's line drawing. */
   image?: Photo;
+  /** Set by the page from image.project (lib/routes › caseStudyHref). */
+  caseHref?: string;
 };
 
 export const buildingSystems: SectionHead & {
+  caseStudy: string;
   leadShort: string;
   linkLabel: string;
   note: string;
@@ -250,6 +257,7 @@ export const buildingSystems: SectionHead & {
   // "Explore" is on the copy deck's never-use list; the design uses it, so it stays here to change in one place.
   linkLabel: "Explore",
   note: "Line drawings mark systems where project photos are still to come.",
+  caseStudy: "View the case study",
   items: [
     { code: "A", line: "Kitchens, baths, interiors, structural" },
     { code: "I", line: "Painting, tile, flooring, finishes" },
@@ -274,11 +282,12 @@ export const measurement = {
   unit: "ft",
   line: "Ceilings we hang chandeliers under, with lifts, scaffolding and reinforced mounts.",
   lineShort: "Ceilings we hang chandeliers under.",
+  caseStudy: "View the case study",
   image: {
     src: "/images/projects/tubes-foyer.jpg",
     alt: "",
     position: "50% 35%",
-  } satisfies Photo,
+  } as Photo,
 };
 
 export const process: SectionHead & {

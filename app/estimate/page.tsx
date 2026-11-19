@@ -4,10 +4,11 @@ import { EstimatePicker } from "@/components/estimators/EstimatePicker";
 import { home } from "@/components/patterns/Breadcrumbs";
 import { PageHero } from "@/components/patterns/PageHero";
 import { Section } from "@/components/patterns/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { seo, wizard } from "@/data/estimate";
-import { metaFor } from "@/data/shared";
+import { estimateSeoPage } from "@/data/seo/pages";
 
-export const metadata = metaFor(seo);
+export const metadata = estimateSeoPage.metadata;
 
 /**
  * /estimate: the quote wizard ("Calculate your project").
@@ -17,6 +18,7 @@ export const metadata = metaFor(seo);
 export default function EstimatePage() {
   return (
     <>
+      <JsonLd data={estimateSeoPage.jsonLd} />
       <PageHero
         trail={[home, { label: wizard.title, href: seo.path }]}
         eyebrow="Calculate your project"

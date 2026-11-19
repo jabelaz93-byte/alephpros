@@ -176,6 +176,14 @@ export function HeroCarousel({ slides, copy }: Props) {
           >
             {cta.calculateFor(slide.ctaWord)}
           </Link>
+          {slide.caseHref && (
+            <Link
+              href={slide.caseHref}
+              className="mt-3 font-semibold text-[13px] text-yellow underline underline-offset-4"
+            >
+              {copy.caseStudy}
+            </Link>
+          )}
 
           <ul
             data-pills

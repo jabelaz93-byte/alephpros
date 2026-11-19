@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SheetCode } from "@/components/ui/SheetCode";
 import { TextLink } from "@/components/ui/TextLink";
 import type { completedProjects } from "@/data/home";
+import { caseStudyHref } from "@/lib/routes";
 
 type Copy = typeof completedProjects;
 
@@ -37,7 +38,10 @@ export function CompletedProjects({ copy }: { copy: Copy }) {
               .filter(Boolean)
               .join(" ")}
           >
-            <Link href={p.href} className="group block">
+            <Link
+              href={caseStudyHref(p.image.project) ?? p.href}
+              className="group block"
+            >
               <div
                 className={`relative overflow-hidden bg-concrete ${p.wide ? "aspect-[342/180] lg:aspect-[836/440]" : "aspect-[165/240] lg:aspect-[436/440]"}`}
               >

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandText } from "@/components/ui/BrandText";
 import { Icon } from "@/components/ui/Icon";
 import { SheetCode } from "@/components/ui/SheetCode";
 
@@ -29,10 +30,10 @@ export function IndexRows({ rows }: { rows: IndexRow[] }) {
               )}
             </span>
             <span className="font-semibold text-[16px] group-hover:underline lg:text-[18px]">
-              {r.title}
+              <BrandText>{r.title}</BrandText>
             </span>
             <span className="col-start-2 row-start-2 text-[13px] text-muted lg:col-start-auto lg:row-start-auto">
-              {r.line}
+              <BrandText>{r.line}</BrandText>
             </span>
             <span className="col-start-3 row-span-2 row-start-1 flex items-center gap-3 self-center text-muted lg:col-start-auto lg:row-span-1">
               {r.meta && (

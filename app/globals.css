@@ -14,15 +14,33 @@
    put data-theme="night" on a section and every token below flips.
    ========================================================================== */
 
-/* Logo face. Uses Mayak Bold if it's installed on the machine; otherwise the file in
-   /public/fonts. Drop Mayak-Bold.woff2 (or .otf) there before launch. */
+/* Logo face: Mayak (ParaType), self-hosted from /public/fonts as woff2.
+   The brand name is always set in it: the logo and wordmark at --logo-weight, and the name
+   inside running text at --brand-weight (components/ui/BrandText). */
 @font-face {
   font-family: "Mayak";
-  src:
-    local("Mayak Bold"),
-    local("Mayak-Bold"),
-    url("/fonts/Mayak-Bold.woff2") format("woff2"),
-    url("/fonts/Mayak-Bold.otf") format("opentype");
+  src: url("/fonts/Mayak-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mayak";
+  src: url("/fonts/Mayak-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mayak";
+  src: url("/fonts/Mayak-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mayak";
+  src: url("/fonts/Mayak-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -52,6 +70,9 @@
   --page-gutter: 24px;
   /* Frame rails sit this far outside the page column. */
   --rail-offset: 24px;
+  /* Mayak weights for the brand name: 300 Light · 400 Regular · 500 Medium · 700 Bold. */
+  --logo-weight: 700;
+  --brand-weight: 500;
   --scrim: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 0%,
@@ -213,4 +234,11 @@ img {
     /* biome-ignore lint/complexity/noImportantStyles: must override component timings */
     transition-duration: 0.01ms !important;
   }
+}
+
+/* The brand name inside text ("Contact AlephPros"), set by components/ui/BrandText. */
+.brand {
+  font-family: var(--font-logo);
+  font-weight: var(--brand-weight);
+  letter-spacing: 0.01em;
 }

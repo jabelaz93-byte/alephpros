@@ -3,7 +3,7 @@
  * The tree is documented in docs/ARCHITECTURE.md.
  */
 import type { Product } from "./products";
-import type { Project } from "./projects";
+import { type Project, projects } from "./projects";
 import {
   getServiceByCode,
   type Service,
@@ -49,3 +49,11 @@ export function codeLink(
 /** The building system a service code belongs to (its first letter). */
 export const systemOfCode = (code: string) =>
   getSystem(code[0] as BuildingSystem["code"]);
+
+/** Link for a photo's case study: only when that project exists and is published. */
+export const caseStudyHref = (slug?: string) => {
+  const p = slug
+    ? projects.find((x) => x.slug === slug && x.publish)
+    : undefined;
+  return p ? projectHref(p) : undefined;
+};
