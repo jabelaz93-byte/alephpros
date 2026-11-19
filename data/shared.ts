@@ -2,8 +2,9 @@
  * Content shared by every page: header links, the CTA vocabulary and the footer.
  * Source: AlephPros premium copy deck, "Shared components", and the v4 home design.
  */
+import type { Metadata } from "next";
 import { serviceAreas, site } from "@/lib/site";
-import type { Cta } from "./types";
+import type { Cta, Seo } from "./types";
 
 /**
  * The only button labels the site uses (copy deck, "CTA vocabulary").
@@ -32,11 +33,11 @@ export const menuLabel = "Menu";
 
 export const headerLinks: Cta[] = [
   { label: "Projects", href: "/projects" },
-  { label: "Services", href: "/services" },
+  { label: "Services", href: "/building-systems" },
   { label: "Painting", href: "/services/painting" },
   { label: "Lighting", href: "/services/architectural-lighting" },
   { label: "Store", href: "/lighting-store" },
-  { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
 ];
 
 export const footer = {
@@ -87,7 +88,7 @@ export const footer = {
         { label: "Property management", href: "/services/property-management" },
         { label: "Team", href: "/team" },
         { label: "Lighting store", href: "/lighting-store" },
-        { label: "FAQ", href: "/faq" },
+        { label: "Contact", href: "/contact" },
       ],
     },
   ] satisfies { title: string; links: Cta[] }[],
@@ -97,7 +98,6 @@ export const footer = {
     { label: "Instagram", href: site.social.instagram },
     { label: "Privacy", href: "/legal/privacy" },
     { label: "Terms", href: "/legal/terms" },
-    { label: "Cookies", href: "/legal/cookies" },
   ] satisfies Cta[],
   rights: "© 2026 AlephPros. All rights reserved.",
   /** Mobile footer: one short link list instead of the columns. */
@@ -106,11 +106,30 @@ export const footer = {
     { label: "Building systems", href: "/building-systems" },
     { label: "How we build", href: "/how-we-build" },
     { label: "Store", href: "/lighting-store" },
-    { label: "About", href: "/about" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Careers", href: "/careers" },
+    { label: "Team", href: "/team" },
+    { label: "Contact", href: "/contact" },
     { label: "Privacy", href: "/legal/privacy" },
   ] satisfies Cta[],
   /** Short hours line for the mobile contact cell. */
   hoursShort: "Mon–Sat",
 } as const;
+
+/** Closing yellow band used at the end of every page (components/home/ClosingBand). */
+export const band = (title: string, action: Cta = cta.calculate) => ({
+  title,
+  action,
+  call: {
+    label: `Or call ${site.phone.display}`,
+    href: site.phone.href,
+  } satisfies Cta,
+});
+
+/** Closing band heading on inner pages (copy deck, "Closing CTA band"). */
+export const closingTitle = "Start with a number.";
+
+/** Page metadata from a page's `seo` block. */
+export const metaFor = (seo: Seo): Metadata => ({
+  title: { absolute: seo.title },
+  description: seo.description,
+  alternates: { canonical: seo.path },
+});

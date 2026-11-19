@@ -5,6 +5,7 @@
 @import "../styles/layout.css" layer(components);
 @import "../styles/navigation.css" layer(components);
 @import "../styles/home.css" layer(components);
+@import "../styles/forms.css" layer(components);
 
 /* ==========================================================================
    AlephPros design system, as code.

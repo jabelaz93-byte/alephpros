@@ -23,6 +23,11 @@ export const wizard = {
     "This is a range from our current prices. We'll confirm it on a site visit.",
   minimum: "Includes our minimum job charge.",
   send: "Send me this quote",
+  onSite: "priced after a site visit, not online.",
+  visit: "Request a site visit",
+  loading: "Loading the calculator…",
+  other:
+    "Plumbing, power and smart systems, and property services are priced after a site visit.",
 };
 
 export const fields = {

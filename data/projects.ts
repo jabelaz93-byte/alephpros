@@ -34,3 +34,26 @@ export const detail = {
   action: cta.quoteLike,
   related: "More projects like this",
 };
+
+export const reviews = {
+  id: "reviews",
+  title: "From homeowners",
+  // TODO: shown before each homeowner has approved their review; confirm before launch.
+  note: "First name, project type and city, shared with permission.",
+};
+
+export const draft = {
+  banner:
+    "Draft: this project isn't published yet. You only see it while developing (pnpm dev).",
+  photoToCome: "Photos to come",
+  facts: {
+    city: "City",
+    completed: "Completed",
+    duration: "Time on site",
+    property: "Property",
+    occupied: "Occupied during work",
+    yes: "Yes",
+  },
+  servicesUsed: "Services on this job",
+  fixture: "Fixture from the lighting store",
+};

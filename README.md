@@ -27,22 +27,31 @@ pnpm dev          # http://localhost:3000
 
 ## Project structure
 
+The full page tree, and how the slug pages work, is in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
+
 ```
 app/                 Routes. Each page.tsx is thin: metadata + sections, words from data/.
+  api/quote/         Contact / site-visit form endpoint (forwarding still TODO)
 components/
   layout/            Site shell: SiteHeader (server) → Navbar (client) → Drawer (left menu)
-  home/              Home page sections (HeroCarousel, Ticker, BuildingSystems, …)
+  patterns/          Page building blocks: PageHero, Section, IndexRows, FeatureGrid,
+                     MediaCard, DetailLayout (shared project/product template), Breadcrumbs
+  home/              Home page sections (HeroCarousel, Ticker, BuildingSystems, ClosingBand, …)
+  estimators/        Quote calculators (painting, tile, lighting, chandelier, remodel)
+  contact/ store/    Contact form, store catalog
   graphics/          Line drawings (SystemDrawing)
-  ui/                Small shared pieces: Icon, SheetCode, TextLink
+  ui/                Small shared pieces: Icon, ButtonLink, SheetCode, TextLink, PhotoPlate
   site/              Logo, Footer
 data/                One TypeScript file per page with that page's words (SEO, headings, buttons).
                      shared.ts = header links, CTA vocabulary, footer. types.ts = shared shapes.
 lib/                 Registries and logic: systems, services, projects, products, team,
-                     testimonials, pricing/estimate, navigation (menu + search).
+                     testimonials, pricing/estimate, navigation (menu + search), routes (URLs).
 styles/              Component CSS, one file per area, loaded from app/globals.css in
-                     Tailwind's components layer (layout, navigation, home).
+                     Tailwind's components layer (layout, navigation, home, forms).
+proxy.ts             Real 404 status for unknown slugs (see docs/ARCHITECTURE.md)
 public/images/       Real project photos only (no stock, no renders).
 public/fonts/        Logo font goes here; not committed (see below).
+docs/                ARCHITECTURE.md: page tree, slug pages, adding a page.
 ```
 
 **Where content lives.** A page's own words are in `data/<page>.ts`. Anything listed in more than

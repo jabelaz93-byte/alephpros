@@ -40,3 +40,22 @@ export const teens = {
     href: "/services/skilled-trade-training/teens",
   },
 };
+
+/** More labels for the service and sub-service pages. */
+export const pageLabels = {
+  priceNow: "Price it now",
+  priceNowLead:
+    "Answer a few questions for a planning range. We confirm it after measuring on site.",
+  subs: (name: string) => `${name}: services`,
+  siblings: (name: string) => `More in ${name}`,
+  projects: "Projects with this service",
+  facts: { system: "Building system", code: "Sheet code", pricing: "Pricing" },
+  teens: {
+    title: "Teen program",
+    ages: "Ages",
+    length: "Length",
+    cohorts: "Start dates",
+    pricing: "Pricing",
+    note: "Dates and prices are confirmed each season.",
+  },
+};

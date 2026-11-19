@@ -305,7 +305,7 @@ export const testimonial = {
   eyebrow: "From a homeowner",
   /** Name of the review in lib/testimonials.ts. TODO: shown before approval; confirm before launch. */
   name: "Martha W.",
-  link: { label: "Read more reviews", href: "/about#reviews" } satisfies Cta,
+  link: { label: "Read more reviews", href: "/projects#reviews" } satisfies Cta,
 };
 
 export const closing = {

@@ -37,3 +37,32 @@ export const product = {
   },
   related: "Other fixtures",
 };
+
+export const productLabels = {
+  from: "From",
+  price: "Price",
+  was: "was",
+  facts: {
+    category: "Category",
+    rooms: "Rooms",
+    ceilings: "Ceilings",
+    styles: "Style",
+    height: "Height",
+    adjustable: "Adjustable",
+  },
+  yes: "Yes",
+  photoToCome: "Product photo to come",
+  installedIn: "Installed by AlephPros",
+  count: (n: number) => `${n} ${n === 1 ? "fixture" : "fixtures"}`,
+  sort: {
+    label: "Sort",
+    featured: "Featured",
+    low: "Price, low to high",
+    high: "Price, high to low",
+  },
+  bestSellers: "Best sellers",
+  all: "All",
+  collections: "Collections",
+  sourceNote:
+    "Don't see it? We supply fixtures beyond this catalog: ask us to source one.",
+};

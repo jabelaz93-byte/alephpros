@@ -1,8 +1,10 @@
 import Link from "next/link";
-import type { closing } from "@/data/home";
+import type { Cta } from "@/data/types";
+
+export type ClosingCopy = { title: string; action: Cta; call: Cta };
 
 /** Yellow closing band: one question, the black button, and the phone number. */
-export function ClosingBand({ copy }: { copy: typeof closing }) {
+export function ClosingBand({ copy }: { copy: ClosingCopy }) {
   return (
     <section
       className="bg-yellow py-16 text-on-yellow lg:py-24"

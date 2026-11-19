@@ -125,3 +125,16 @@ export const systemPages: Record<SystemCode, SystemPage> = {
     proofNote: "Hide stats (stays, properties, guests) until confirmed.",
   },
 };
+
+/** Labels used on the index and system pages. */
+export const labels = {
+  services: "Services",
+  servicesLead:
+    "Each service has its own page, with what's included and how it's priced.",
+  count: (n: number) => `${n} ${n === 1 ? "service" : "services"}`,
+  projects: "Work in this system",
+  noProjects:
+    "Project write-ups for this system are being approved by their owners. Calculate your project now, or ask us for photos of similar work.",
+  audience: "Who we work with",
+  method: "How we run it",
+};

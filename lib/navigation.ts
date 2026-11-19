@@ -79,7 +79,7 @@ export const navigation: NavSection[] = [
         icon: "store",
         count: products.length,
       },
-      { label: "About", href: "/about", icon: "about" },
+      { label: "Team", href: "/team", icon: "about" },
     ],
   },
   {

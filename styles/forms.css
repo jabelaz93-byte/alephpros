@@ -1,0 +1,342 @@
+/* ----------------------------------------------------------------- Forms */
+/* Fields, segmented choices and the estimate sheet. Used by components/estimators and the
+   contact form. Square corners, 1.5px lines, black focus ring: the drawing-set look. */
+
+.ap-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.ap-field__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ap-field__help {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.ap-field__error {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--redline);
+}
+
+.ap-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--concrete);
+  border-radius: 2px;
+  background: var(--plaster);
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.ap-input:hover {
+  border-color: var(--graphite);
+}
+
+.ap-input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--ink);
+}
+
+.ap-input[aria-invalid="true"] {
+  border-color: var(--redline);
+}
+
+textarea.ap-input {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.ap-input-unit {
+  position: relative;
+  display: block;
+}
+
+.ap-input-unit .ap-input {
+  padding-right: 92px;
+}
+
+.ap-input-unit__unit {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--ink-muted);
+  pointer-events: none;
+}
+
+/* Segmented choice: radio buttons drawn as joined boxes. */
+.ap-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ap-seg__opt {
+  position: relative;
+}
+
+.ap-seg__opt input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
+
+.ap-seg__opt span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1.5px solid var(--concrete);
+  border-radius: 2px;
+  background: var(--plaster);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.ap-seg__opt:hover span {
+  border-color: var(--graphite);
+}
+
+.ap-seg__opt input:checked + span {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--vellum);
+  font-weight: 600;
+}
+
+.ap-seg__opt input:focus-visible + span {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ap-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.ap-check input {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: var(--ink);
+}
+
+/* Estimator: inputs on the left, the sheet (quote) on the right. */
+.ap-est {
+  display: grid;
+  gap: 24px;
+}
+
+@media (width >= 64rem) {
+  .ap-est {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+}
+
+.ap-est__inputs {
+  display: grid;
+  gap: 24px;
+}
+
+.ap-est__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.ap-est__sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 3px solid var(--ink);
+  background: var(--plaster);
+}
+
+@media (width >= 64rem) {
+  .ap-est__sheet {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.ap-lines {
+  display: grid;
+  border-top: 1px solid var(--concrete);
+}
+
+.ap-lines li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--concrete);
+  font-size: 14px;
+}
+
+.ap-lines__name {
+  font-weight: 600;
+}
+
+.ap-lines__qty {
+  grid-column: 1;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.ap-lines__amt {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.ap-total {
+  display: grid;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.ap-total__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.ap-total__figure {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ap-total__note {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.ap-est__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Buttons used inside forms and estimators. */
+.ap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 2px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ap-btn--primary {
+  background: var(--aleph-black);
+  color: var(--aleph-yellow);
+}
+
+.ap-btn--primary:hover {
+  background: var(--graphite);
+}
+
+.ap-btn--primary:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.ap-btn--secondary {
+  border: 1.5px solid var(--graphite);
+  background: transparent;
+  color: var(--ink);
+}
+
+.ap-btn--secondary:hover {
+  background: var(--vellum);
+}
+
+.ap-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Two-column form grid that collapses on small screens. */
+.form-grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (width >= 40rem) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-grid .span-2 {
+    grid-column: 1 / -1;
+  }
+}
+
+.notice {
+  padding: 16px 18px;
+  border-left: 3px solid var(--aleph-yellow);
+  background: var(--vellum);
+  font-size: 14px;
+}
+
+.notice--ok {
+  border-left-color: var(--patina);
+}
+
+/* Chip buttons (store filters, estimator tabs). */
+.ap-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1.5px solid var(--concrete);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ap-chip:hover {
+  border-color: var(--graphite);
+}
+
+.ap-chip[aria-pressed="true"],
+.ap-chip[aria-current="page"],
+.ap-chip[aria-current="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--vellum);
+}
