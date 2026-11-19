@@ -242,3 +242,15 @@ img {
   font-weight: var(--brand-weight);
   letter-spacing: 0.01em;
 }
+
+/* Phones and tablets: form text at 16px or more, or the browser zooms the page when a field
+   is focused (Safari, and Chrome/Edge/Firefox on iPhone, which all run Safari's engine).
+   Applies to every input, so new fields are covered too. Desktop keeps its sizes.
+   (Don't "fix" this with maximum-scale=1: that blocks pinch-zoom for people who need it.) */
+@media (pointer: coarse), (width < 64rem) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
+}
