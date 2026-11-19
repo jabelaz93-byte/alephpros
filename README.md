@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AlephPros website
 
-## Getting Started
+Marketing site for **AlephPros**, construction and remodeling in Dallas–Fort Worth
+(McKinney, TX). Built with Next.js 16 (App Router, Cache Components), React 19, Tailwind CSS 4
+and TypeScript.
 
-First, run the development server:
+## Getting started
+
+Requirements: Node.js 20+ and pnpm (the version is pinned in `package.json` › `packageManager`;
+`corepack enable` picks it up).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Script | What it does |
+| --- | --- |
+| `pnpm dev` | Development server (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Biome lint + format check |
+| `pnpm format` | Biome format, writing changes |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> This Next.js version has breaking changes from older releases. Read `AGENTS.md` and the docs in
+> `node_modules/next/dist/docs/` before changing framework code.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```
+app/                 Routes. Each page.tsx is thin: metadata + sections, words from data/.
+components/
+  layout/            Site shell: SiteHeader (server) → Navbar (client) → Drawer (left menu)
+  home/              Home page sections (HeroCarousel, Ticker, BuildingSystems, …)
+  graphics/          Line drawings (SystemDrawing)
+  ui/                Small shared pieces: Icon, SheetCode, TextLink
+  site/              Logo, Footer
+data/                One TypeScript file per page with that page's words (SEO, headings, buttons).
+                     shared.ts = header links, CTA vocabulary, footer. types.ts = shared shapes.
+lib/                 Registries and logic: systems, services, projects, products, team,
+                     testimonials, pricing/estimate, navigation (menu + search).
+styles/              Component CSS, one file per area, loaded from app/globals.css in
+                     Tailwind's components layer (layout, navigation, home).
+public/images/       Real project photos only (no stock, no renders).
+public/fonts/        Logo font goes here; not committed (see below).
+```
 
-To learn more about Next.js, take a look at the following resources:
+**Where content lives.** A page's own words are in `data/<page>.ts`. Anything listed in more than
+one place (building systems, services and their codes, projects, products, people) lives once in
+`lib/` and is read from there. Service codes (e.g. `E-201`) are checked at build time: an
+unknown code in `data/home.ts` fails the build.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Design tokens.** Colours, type scale and the page column are in `app/globals.css`:
+`--page-width` (80% of the screen on desktop), `--page-gutter` (mobile/tablet side gap) and
+`--rail-offset` (frame rails outside the column). `data-theme="night"` on a section flips the
+palette for black bands.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Icons.** Lucide, used only through `components/ui/Icon.tsx` (`<Icon name="phone" />`). To change
+icon library, edit that one file and keep the names.
 
-## Deploy on Vercel
+## Logo font (Mayak Bold)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The logo uses **Mayak Bold** by ParaType, a commercial font. It is **not** in this repository.
+Add the licensed web-font file at `public/fonts/Mayak-Bold.woff2` (or `.otf`); `app/globals.css`
+loads it automatically. Without it the logo falls back to Archivo Bold. Font files in
+`public/fonts/` are ignored by git so the licence isn't redistributed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content still to confirm
+
+Search for `TODO` in `data/` and `lib/`. Notably: project write-ups (`publish: false` until owners
+approve), testimonial approvals, team names and licence numbers, FAQ and legal text, social URLs.

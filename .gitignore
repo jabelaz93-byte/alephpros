@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Licensed logo font (Mayak, ParaType): never commit the font files; see README
+/public/fonts/*
+!/public/fonts/README.md
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json

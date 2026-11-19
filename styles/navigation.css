@@ -1,0 +1,552 @@
+/* ------------------------------------------------------------ Navigation */
+/* Header (menu button, logo, phone, CTA) and the left Drawer.
+   Same structure as the BOAZ Labs menu, drawn with AlephPros tokens (app/globals.css):
+   plaster panel, concrete rules, yellow current-page marker, 2px corners. */
+
+.nav {
+  --nav-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --bar-h: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--vellum);
+  border-bottom: 1px solid var(--concrete);
+  transition:
+    background-color 200ms var(--nav-ease),
+    border-color 200ms var(--nav-ease);
+}
+
+/* Keeps the menu's own colours when the header above it is in overlay mode. */
+.drawer {
+  --ink: #000000;
+  --graphite: #2b2e30;
+}
+
+.nav--scrolled {
+  --bar-h: 56px;
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: var(--bar-h);
+  transition: height 220ms var(--nav-ease);
+}
+
+.nav__menu {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--graphite);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 160ms var(--nav-ease);
+}
+
+.nav__menu:hover {
+  background: var(--plaster);
+}
+
+/* Mobile: logo on the left, a "Menu" text button on the right.
+   Desktop: icon button before the logo. */
+.nav__menu {
+  order: 3;
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav__menu .icon {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .nav__menu {
+    order: 0;
+    width: 40px;
+    margin-left: 0;
+    padding: 0;
+  }
+  .nav__menu .icon {
+    display: block;
+  }
+  .nav__menu-label {
+    display: none;
+  }
+}
+
+/* Home on mobile: the header sits on the hero photo, see-through with white type, until the
+   page scrolls (Navbar sets the class). */
+@media (width < 64rem) {
+  .nav--overlay {
+    --ink: #ffffff;
+    --graphite: #ffffff;
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+  .nav--overlay .nav__menu:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Inline links: desktop only, centred between the logo and the phone. */
+.nav__links {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .nav__links {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    gap: 28px;
+  }
+}
+
+.nav__link {
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.nav__link:hover,
+.nav__link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+}
+
+.nav__actions {
+  display: none;
+}
+
+/* Phone and CTA: desktop only (mobile design shows logo + Menu). */
+@media (width >= 64rem) {
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+}
+
+.nav__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* The number is shown; the icon is for small layouts if the actions ever return there. */
+.nav__phone .icon {
+  display: none;
+}
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 2px;
+  background: var(--aleph-black);
+  color: var(--aleph-yellow);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Size and stroke come from components/ui/Icon.tsx; this only keeps icons from shrinking. */
+.icon {
+  flex: none;
+}
+
+/* ---------------------------------------------------------------- Drawer */
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 260ms var(--nav-ease),
+    visibility 0s 260ms;
+}
+
+.drawer-scrim[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.drawer {
+  --drawer-pad: 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 71;
+  display: flex;
+  flex-direction: column;
+  width: min(340px, calc(100vw - 40px));
+  padding: calc(14px + env(safe-area-inset-top, 0px)) var(--drawer-pad)
+    calc(16px + env(safe-area-inset-bottom, 0px))
+    max(var(--drawer-pad), env(safe-area-inset-left, 0px));
+  background: var(--plaster);
+  border-right: 1px solid var(--concrete);
+  box-shadow: var(--shadow-menu);
+  color: var(--ink);
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition:
+    transform 280ms var(--nav-ease),
+    visibility 0s 280ms;
+}
+
+.drawer[data-open="true"] {
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 40px;
+}
+
+.drawer__brand {
+  display: flex;
+  align-items: center;
+}
+
+.drawer__icon-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: -8px;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.drawer__icon-btn:hover {
+  background: var(--vellum);
+}
+
+.drawer__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  margin: 16px 0 4px;
+  padding: 0 8px 0 12px;
+  border: 1px solid var(--concrete);
+  border-radius: 2px;
+  background: var(--vellum);
+  color: var(--ink-muted);
+  cursor: text;
+  transition: border-color 160ms var(--nav-ease);
+}
+
+.drawer__search:focus-within {
+  border-color: var(--graphite);
+  color: var(--ink);
+}
+
+.drawer__search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink);
+  outline: none;
+}
+
+.drawer__search input::placeholder {
+  color: var(--ink-muted);
+}
+
+.drawer__search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.drawer__search kbd {
+  padding: 3px 6px;
+  border: 1px solid var(--concrete);
+  border-radius: 2px;
+  background: var(--plaster);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink-muted);
+}
+
+.drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin-inline: calc(-1 * var(--drawer-pad));
+  padding: 0 var(--drawer-pad) 16px;
+}
+
+.drawer__section {
+  margin-top: 20px;
+}
+
+.drawer__section + .drawer__section {
+  padding-top: 20px;
+  border-top: 1px solid var(--concrete);
+}
+
+.drawer__label {
+  padding: 0 8px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+}
+
+.drawer__list {
+  display: grid;
+  gap: 1px;
+}
+
+.drawer__rowwrap {
+  display: flex;
+  align-items: center;
+}
+
+.drawer__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--graphite);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--nav-ease),
+    color 140ms var(--nav-ease);
+}
+
+.drawer__row:hover {
+  background: var(--vellum);
+  color: var(--ink);
+}
+
+.drawer__row[aria-current="page"] {
+  background: var(--vellum);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Yellow marker at the drawer's edge for the current page. */
+.drawer__row[aria-current="page"]::before,
+.drawer__subrow[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--aleph-yellow);
+}
+
+.drawer__row[aria-current="page"]::before {
+  left: calc(-1 * var(--drawer-pad));
+}
+
+.drawer__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer__count {
+  margin-left: auto;
+  min-width: 24px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--vellum);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-muted);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.drawer__ext {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  color: var(--ink-muted);
+}
+
+.drawer__chev {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: var(--graphite);
+  cursor: pointer;
+}
+
+.drawer__chev:hover {
+  background: var(--vellum);
+  color: var(--ink);
+}
+
+.drawer__chev .icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 200ms var(--nav-ease);
+}
+
+.drawer__chev[aria-expanded="false"] .icon {
+  transform: rotate(-90deg);
+}
+
+.drawer__sub {
+  margin: 2px 0 8px 17px;
+  border-left: 1px solid var(--concrete);
+}
+
+.drawer__sub[hidden] {
+  display: none;
+}
+
+.drawer__subrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  padding: 6px 8px 6px 16px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--graphite);
+  transition:
+    background-color 140ms var(--nav-ease),
+    color 140ms var(--nav-ease);
+}
+
+.drawer__subrow:hover {
+  background: var(--vellum);
+  color: var(--ink);
+}
+
+.drawer__subrow[aria-current="page"] {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.drawer__subrow[aria-current="page"]::before {
+  left: -2px;
+}
+
+/* Building-system sheet code, like a drawing-sheet number. */
+.drawer__code {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  min-width: 24px;
+  height: 20px;
+  padding: 0 4px;
+  border: 1px solid var(--graphite);
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.drawer__row--result {
+  align-items: flex-start;
+  padding-block: 10px;
+}
+
+.drawer__result {
+  display: grid;
+  gap: 2px;
+}
+
+.drawer__where {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+}
+
+.drawer__empty {
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.drawer__empty a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.drawer__foot {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--concrete);
+}
+
+.drawer__card {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--aleph-yellow);
+  background: var(--vellum);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.drawer__card-title {
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.drawer__collapse {
+  font-size: 14px;
+}
+
+.menu-open {
+  overflow: hidden;
+}

@@ -1,0 +1,37 @@
+/* ---------------------------------------------------------------- Layout */
+
+/* Frame rails: two hairlines running the full page, just outside the content column, like the
+   border of a drawing sheet. Desktop only; drawn above sections, below the header and menu. */
+.frame-rails {
+  display: none;
+}
+
+@media (width >= 64rem) {
+  .frame-rails {
+    /* Left edge of the page column, as a share of the screen (the rail layer is full width). */
+    --content-left: calc((100% - var(--page-width)) / 2);
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    display: block;
+    pointer-events: none;
+  }
+
+  .frame-rails::before,
+  .frame-rails::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(160, 166, 162, 0.55);
+  }
+
+  .frame-rails::before {
+    left: calc(var(--content-left) - var(--rail-offset));
+  }
+
+  .frame-rails::after {
+    right: calc(var(--content-left) - var(--rail-offset));
+  }
+}

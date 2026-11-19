@@ -1,0 +1,22 @@
+/* ------------------------------------------------------------------ Home */
+
+/* Ticker: two copies of the list slide left by one copy's width, then repeat. */
+.ticker__track {
+  animation: ap-marquee 38s linear infinite;
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+@keyframes ap-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
